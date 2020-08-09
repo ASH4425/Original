@@ -41,7 +41,7 @@
 #include <time.h>
 
 int counter=0;
-double Array::ReadCell(int x, int y, int batchSize, char* mode) {
+double Array::ReadCell(int x, int y, char* mode) {
     // mode is only for the 3T1C cell to select LSB or MSB
     // it should be "MSB_LTP","MSB_LTD" or "LSB" 
 	if (AnalogNVM *temp = dynamic_cast<AnalogNVM*>(**cell)) // Analog eNVM
@@ -73,7 +73,8 @@ double Array::ReadCell(int x, int y, int batchSize, char* mode) {
 		double driftCoeff = 0.1;
 		double timeZero = 1e-06;
 
-		
+		int batchSize = ReturnbatchSize();
+
 		if (batchSize > 0) {
 			
 
