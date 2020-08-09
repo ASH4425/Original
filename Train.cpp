@@ -118,7 +118,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 	for (int t = 0; t < epochs; t++) {
 		for (int batchSize = 0; batchSize < numTrain; batchSize++) {
 
-			if (batchSize > 0) static_cast<eNVM*>(cell[x][y])->batchSizeZero==false;
+			if (batchSize > 0) static_cast<eNVM*>(cell[0][0])->batchSizeZero==false;
 
 
 			int i = rand() % param->numMnistTrainImages;  // Randomize sample
