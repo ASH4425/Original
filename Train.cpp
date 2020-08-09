@@ -118,7 +118,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 	for (int t = 0; t < epochs; t++) {
 		for (int batchSize = 0; batchSize < numTrain; batchSize++) {
 
-			if (batchSize > 0) static_cast<eNVM*>(cell[0][0])->batchSizeZero==false;
+			
 
 
 			int i = rand() % param->numMnistTrainImages;  // Randomize sample
@@ -133,7 +133,12 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
                 double readPulseWidth;
 
            if(AnalogNVM *temp = dynamic_cast<AnalogNVM*>(arrayIH->cell[0][0]))
-           {
+           {	
+			   
+				if (batchSize > 0) static_cast<eNVM*>(cell[0][0])->batchSizeZero==false;
+
+
+
                  //printf("This is AnalogNVM\n");
                  readVoltage = static_cast<eNVM*>(arrayIH->cell[0][0])->readVoltage;
 				 readPulseWidth = static_cast<eNVM*>(arrayIH->cell[0][0])->readPulseWidth;
@@ -281,6 +286,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
             double readVoltage;
             double readPulseWidth;
             if(AnalogNVM *temp = dynamic_cast<AnalogNVM*>(arrayHO->cell[0][0])){
+
+				if (batchSize > 0) static_cast<eNVM*>(cell[0][0])->batchSizeZero == false;
+
+
                 readVoltage = static_cast<eNVM*>(arrayHO->cell[0][0])->readVoltage;
 				readPulseWidth = static_cast<eNVM*>(arrayHO->cell[0][0])->readPulseWidth;
             }
