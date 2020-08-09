@@ -71,7 +71,7 @@ double Array::ReadCell(int x, int y, char* mode) {
 
 
 		/*readTime estimation*/
-		double driftCoeff = 0.1;
+		double driftCoeff = 0.003;
 		double timeZero = 1e-06;
 
 		if (static_cast<eNVM*>(cell[0][0])->batchSizeZero==false) {
