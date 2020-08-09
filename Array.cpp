@@ -301,7 +301,7 @@ double Array::ConductanceToWeight(int x, int y, double maxWeight, double minWeig
 	if (AnalogNVM *temp = dynamic_cast<AnalogNVM*>(**cell)) 
     {	// Analog eNVM
 		/* Measure current */
-		double I = this->ReadCell(x, y, batchSize); // for AnalogNVM, read the current and convert it into conductance
+		double I = this->ReadCell(x, y); // for AnalogNVM, read the current and convert it into conductance
 		/* Convert current to weight */
 		double Imax = static_cast<AnalogNVM*>(cell[x][y])->GetMaxReadCurrent(); // the current when Conductance is the minimum
 		double Imin = static_cast<AnalogNVM*>(cell[x][y])->GetMinReadCurrent(); // the current when Conductance is the maximum
