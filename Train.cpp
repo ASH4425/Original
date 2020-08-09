@@ -164,7 +164,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 							double inputSum = 0;    // Weighted sum current of input vector * weight=1 column
 							for (int k=0; k<param->nInput; k++) {
 								if ((dInput[i][k]>>n) & 1) {    // if the nth bit of dInput[i][k] is 1
-									Isum += arrayIH->ReadCell( j,k, batchSize);
+									Isum += arrayIH->ReadCell( j,k);
                                     inputSum += arrayIH->GetMediumCellReadCurrent(j,k);    // get current of Dummy Column as reference
 									sumArrayReadEnergy += arrayIH->wireCapRow * readVoltage * readVoltage; // Selected BLs (1T1R) or Selected WLs (cross-point)
 								}
