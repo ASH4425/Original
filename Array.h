@@ -41,6 +41,7 @@
 
 #include <cstdlib>
 #include "Cell.h"
+#include "Train.h"
 
 class Array {
 public:
