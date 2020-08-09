@@ -193,15 +193,15 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 						bool regular /* False: ideal write, True: regular write considering device properties */) {
 	// TODO: include wire resistance
 	if (AnalogNVM *temp = dynamic_cast<AnalogNVM*>(**cell)) // Analog eNVM
-    { 
+    {	
+
+		//latestWrieteTime Update
+		if (deltaWeight != 0) static_cast<eNVM*>(cell[x][y])->latestWriteTime = time(NULL);
+		
+		
 		//printf("Writing cell....\n");
-        if (regular) 
+        if (regular)
         {	// Regular write
-
-			//latestWrieteTime Update
-			if (deltaWeight != 0) static_cast<eNVM*>(cell[x][y])->latestWriteTime = time(NULL);
-			
-
 			static_cast<AnalogNVM*>(cell[x][y])->Write(deltaWeight, weight, minWeight, maxWeight);
 		} 
         else 
