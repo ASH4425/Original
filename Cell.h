@@ -99,6 +99,8 @@ public:
 	long waitTime;
 	long latestWriteTime;
 	long readTime;
+
+	bool batchSizeZero;
 };
 
 class SRAM: public Cell {

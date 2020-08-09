@@ -118,9 +118,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 	for (int t = 0; t < epochs; t++) {
 		for (int batchSize = 0; batchSize < numTrain; batchSize++) {
 
-			int ReturnbatchSize() 
-				return batchSize;
-			
+			if (batchSize > 0) static_cast<eNVM*>(cell[x][y])->batchSizeZero==false;
 
 
 			int i = rand() % param->numMnistTrainImages;  // Randomize sample
@@ -164,7 +162,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 							double inputSum = 0;    // Weighted sum current of input vector * weight=1 column
 							for (int k=0; k<param->nInput; k++) {
 								if ((dInput[i][k]>>n) & 1) {    // if the nth bit of dInput[i][k] is 1
-									Isum += arrayIH->ReadCell( j,k);
+									Isum += arrayIH->ReadCell(j,k);
                                     inputSum += arrayIH->GetMediumCellReadCurrent(j,k);    // get current of Dummy Column as reference
 									sumArrayReadEnergy += arrayIH->wireCapRow * readVoltage * readVoltage; // Selected BLs (1T1R) or Selected WLs (cross-point)
 								}
