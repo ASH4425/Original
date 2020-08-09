@@ -71,7 +71,7 @@ double Array::ReadCell(int x, int y, char* mode) {
 
 
 		/*readTime estimation*/
-		double driftCoeff = 0.003;
+		double driftCoeff = 0.1;
 		double timeZero = 1e-06;
 
 		if (static_cast<eNVM*>(cell[0][0])->batchSizeZero==false) {
@@ -80,7 +80,7 @@ double Array::ReadCell(int x, int y, char* mode) {
 			static_cast<eNVM*>(cell[x][y])->readTime = time(NULL);
 			static_cast<eNVM*>(cell[x][y])->waitTime = static_cast<eNVM*>(cell[x][y])->readTime - static_cast<eNVM*>(cell[x][y])->latestWriteTime;
 
-			static_cast<eNVM*>(cell[x][y])->conductance *= pow((timeZero) / (static_cast<eNVM*>(cell[x][y])->waitTime), driftCoeff);
+			static_cast<eNVM*>(cell[x][y])->conductance *= pow((timeZero) / ((double)static_cast<eNVM*>(cell[x][y])->waitTime), driftCoeff);
 		}
 
 
