@@ -135,7 +135,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
            if(AnalogNVM *temp = dynamic_cast<AnalogNVM*>(arrayIH->cell[0][0]))
            {	
 			   
-				if (batchSize > 0) static_cast<eNVM*>(arrayIH->cell[0][0])->batchSizeZero==false;
+				//if (batchSize > 0) static_cast<eNVM*>(arrayIH->cell[0][0])->batchSizeZero==false;
 
 
 
@@ -287,7 +287,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
             double readPulseWidth;
             if(AnalogNVM *temp = dynamic_cast<AnalogNVM*>(arrayHO->cell[0][0])){
 
-				if (batchSize > 0) static_cast<eNVM*>(arrayHO->cell[0][0])->batchSizeZero == false;
+				//if (batchSize > 0) static_cast<eNVM*>(arrayHO->cell[0][0])->batchSizeZero == false;
 
 
                 readVoltage = static_cast<eNVM*>(arrayHO->cell[0][0])->readVoltage;
