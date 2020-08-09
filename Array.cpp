@@ -38,9 +38,10 @@
 
 #include "formula.h"
 #include "Array.h"
+#include <time.h>
 
 int counter=0;
-double Array::ReadCell(int x, int y, char* mode) {
+double Array::ReadCell(int x, int y, int batchSize, char* mode) {
     // mode is only for the 3T1C cell to select LSB or MSB
     // it should be "MSB_LTP","MSB_LTD" or "LSB" 
 	if (AnalogNVM *temp = dynamic_cast<AnalogNVM*>(**cell)) // Analog eNVM
@@ -63,7 +64,22 @@ double Array::ReadCell(int x, int y, char* mode) {
         {
 			totalWireResistance = (x + 1) * wireResistanceRow + (arrayRowSize - y) * wireResistanceCol;
 		}
+
+
 		double cellCurrent;
+
+
+		/*readTime estimation*/
+		if (batchSize > 0) {
+			double driftCoeff = 0.1;
+
+			static_cast<eNVM*>(cell[x][y])->readTime = time(NULL);
+			static_cast<eNVM*>(cell[x][y])->waitTime = static_cast<eNVM*>(cell[x][y])->readTime - static_cast<eNVM*>(cell[x][y])->latestWriteTime;
+
+			static_cast<eNVM*>(cell[x][y])->conductance *= pow((1e-06) / (static_cast<eNVM*>(cell[x][y])->waitTime), driftCoeff);
+		}
+
+
 		if (static_cast<eNVM*>(cell[x][y])->nonlinearIV) 
         {
 			// Bisection method to calculate read current with nonlinearity
@@ -177,6 +193,11 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 		//printf("Writing cell....\n");
         if (regular) 
         {	// Regular write
+
+			//latestWrieteTime Update
+			if (deltaWeight != 0) static_cast<eNVM*>(cell[x][y])->latestWriteTime = time(NULL);
+			
+
 			static_cast<AnalogNVM*>(cell[x][y])->Write(deltaWeight, weight, minWeight, maxWeight);
 		} 
         else 
