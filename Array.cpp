@@ -71,13 +71,30 @@ double Array::ReadCell(int x, int y, char* mode) {
 
 
 		/*readTime estimation*/
-		double driftCoeff = 0.1;
+		
 		double timeZero = 1e-06;
 
 		if (static_cast<eNVM*>(cell[0][0])->batchSizeZero = false) {
 		
 			static_cast<eNVM*>(cell[x][y])->readTime = time(NULL);
 			static_cast<eNVM*>(cell[x][y])->waitTime = static_cast<eNVM*>(cell[x][y])->readTime - static_cast<eNVM*>(cell[x][y])->latestWriteTime;
+
+			//Simplified Drift Effect
+			double driftCoeff;
+			double driftCoeffDepend = 0.2;
+			double maxdriftCoeff = 0.1;
+			double mindriftCoeff = 0.0;
+
+
+			if (static_cast<eNVM*>(cell[x][y])->conductance > 2e-06) {
+				driftCoeff = 0.0;
+			}
+			else {
+				driftCoeff = driftCoeffDepend * log(0.5e-06 / static_cast<eNVM*>(cell[x][y])->conductance) + 0.1;
+			}
+
+			if (driftCoeff < mindriftCoeff) driftCoeff = mindriftCoeff;
+			if (driftCoeff > maxdriftCoeff) driftCoeff = maxdriftCoeff;
 
 			static_cast<eNVM*>(cell[x][y])->conductance *= pow((timeZero) / ((double)static_cast<eNVM*>(cell[x][y])->waitTime), driftCoeff);
 		}
