@@ -118,7 +118,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 	for (int t = 0; t < epochs; t++) {
 		for (int batchSize = 0; batchSize < numTrain; batchSize++) {
 
-			
+			//is_finalbatch
+			bool finalbatch;
+			if (batchSize == numTrain) finalbatch = true;
+			else finalbatch = false;
 
 
 			int i = rand() % param->numMnistTrainImages;  // Randomize sample
@@ -1044,6 +1047,76 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					}
 				}
 			}
+
+
+
+//start weight tracking
+		if (finalbatch) {
+
+			for (int m = 0; m < param->nHide; m++) {
+
+				for (int i = 0; i < 4; i++) {
+
+					for (int n = 100 * i; n < 100 * (i + 1); n++) {
+
+						sprintf(fileIH, "%d", i);
+
+						string filenameA = "weightIH";
+
+						filenameA.append(fileIH);
+
+						ofstream readA;
+
+						readA.open(filenameA + ".csv", std::ios_base::app);
+
+						readA << endl;
+
+						readA << epochcount << ", " << m << ", " << n; //write Cell index
+
+						readA << ", " << weight1[m][n];
+
+					}
+
+				}
+
+			}
+
+
+			ofstream readB;
+
+			readB.open("weightHO.csv", std::ios_base::app);
+
+
+			for (int m = 0; m < param->nOutput; m++) {
+
+				for (int i = 0; i < 4; i++) {
+
+					for (int n = 25 * i; n < 25 * (i + 1); n++) {
+
+						sprintf(fileHO, "%d", i);
+
+						string filenameB = "weightHO";
+
+						filenameB.append(fileHO);
+
+						ofstream readB;
+
+						readB.open(filenameB + ".csv", std::ios_base::app);
+
+						readB << endl;
+
+						readB << epochcount << ", " << m << ", " << n; // write cell index
+
+						readB << ", " << weight2[m][n];
+
+					}
+
+				}
+
+			}
+		}
+		// end of weight tracking code
+
 		}
     }
 }
