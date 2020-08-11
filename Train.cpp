@@ -1063,11 +1063,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 			for (int m = 0; m < param->nHide; m++) {
 
-				for (int i = 0; i < 4; i++) {
 
-					for (int n = 100 * i; n < 100 * (i + 1); n++) {
-
-						sprintf(fileIH, "%d", i);
+					for (int n = 0; n < param->nInput; n++) {
 
 						string filenameA = "weightIH";
 
@@ -1085,8 +1082,6 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 					}
 
-				}
-
 			}
 
 
@@ -1097,11 +1092,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 			for (int m = 0; m < param->nOutput; m++) {
 
-				for (int i = 0; i < 4; i++) {
-
-					for (int n = 25 * i; n < 25 * (i + 1); n++) {
-
-						sprintf(fileHO, "%d", i);
+					for (int n =0; n < param->nHide; n++) {
 
 						string filenameB = "weightHO";
 
@@ -1118,8 +1109,6 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						readB << ", " << weight2[m][n];
 
 					}
-
-				}
 
 			}
 		}
