@@ -1083,6 +1083,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 						readA << ", " << weight1[m][n];
 
+						readA.close();
+
 					}
 				}
 			}
@@ -1114,6 +1116,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						readB << m << ", " << n; //write Cell index
 
 						readB << ", " << weight2[m][n];
+
+						readB.close();
 
 					}
 				}
