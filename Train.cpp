@@ -1076,7 +1076,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 						readA << endl;
 
-						readA << epochcount << ", " << m << ", " << n; //write Cell index
+						readA << m << ", " << n; //write Cell index
 
 						readA << ", " << weight1[m][n];
 
@@ -1110,7 +1110,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 						readB << endl;
 
-						readB << epochcount << ", " << m << ", " << n; // write cell index
+						readB << m << ", " << n; //write Cell index
 
 						readB << ", " << weight2[m][n];
 
