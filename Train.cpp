@@ -1056,8 +1056,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 
 //start weight tracking
-		char fileIH;
-		char fileOH;
+		char *fileIH;
+		char *fileHO;
 
 		if (finalbatch) {
 
