@@ -1064,7 +1064,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 					for (int n = 100 * i; n < 100 * (i + 1); n++) {
 
-						sprintf(fileIH, "%d", i);
+						sprintf(char *fileIH, "%d", i);
 
 						string filenameA = "weightIH";
 
@@ -1098,7 +1098,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 					for (int n = 25 * i; n < 25 * (i + 1); n++) {
 
-						sprintf(fileHO, "%d", i);
+						sprintf(char *fileHO, "%d", i);
 
 						string filenameB = "weightHO";
 
