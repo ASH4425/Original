@@ -1056,6 +1056,9 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 
 //start weight tracking
+		char fileIH;
+		char fileOH;
+
 		if (finalbatch) {
 
 			for (int m = 0; m < param->nHide; m++) {
@@ -1064,7 +1067,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 					for (int n = 100 * i; n < 100 * (i + 1); n++) {
 
-						sprintf(char *fileIH, "%d", i);
+						sprintf(fileIH, "%d", i);
 
 						string filenameA = "weightIH";
 
@@ -1098,7 +1101,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 					for (int n = 25 * i; n < 25 * (i + 1); n++) {
 
-						sprintf(char *fileHO, "%d", i);
+						sprintf(fileHO, "%d", i);
 
 						string filenameB = "weightHO";
 
