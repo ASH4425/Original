@@ -1063,8 +1063,11 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 			for (int m = 0; m < param->nHide; m++) {
 
+				for (int i = 0; i < 4; i++) {
 
-					for (int n = 0; n < param->nInput; n++) {
+					for (int n = 100 * i; n < 100 * (i + 1); n++) {
+
+						sprintf(fileIH, "%d", i);
 
 						string filenameA = "weightIH";
 
@@ -1081,7 +1084,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						readA << ", " << weight1[m][n];
 
 					}
-
+				}
 			}
 
 
@@ -1092,7 +1095,11 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 			for (int m = 0; m < param->nOutput; m++) {
 
-					for (int n =0; n < param->nHide; n++) {
+				for (int i = 0; i < 4; i++) {
+
+					for ((int n = 25 * i; n < 25 * (i + 1); n++) {
+
+						sprintf(fileHO, "%d", i);
 
 						string filenameB = "weightHO";
 
@@ -1109,7 +1116,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						readB << ", " << weight2[m][n];
 
 					}
-
+				}
 			}
 		}
 		// end of weight tracking code
