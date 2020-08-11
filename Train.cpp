@@ -50,6 +50,8 @@
 #include <string>
 #include <fstream>
 
+using namespace std;
+
 extern Param *param;
 
 extern std::vector< std::vector<double> > Input;
