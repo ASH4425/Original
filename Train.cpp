@@ -1075,13 +1075,13 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 						ofstream readA;
 
-						readA.open("weightIH.csv", std::ios_base::app);
+						readA.open("weightIH.txt", std::ios_base::app);
 
 						readA << endl;
 
-						readA << m << ", " << n; //write Cell index
+						readA << (char)m << ", " << (char)n; //write Cell index
 
-						readA << ", " << weight1[m][n];
+						readA << ", " << (char)weight1[m][n];
 
 						readA.close();
 
@@ -1109,13 +1109,13 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 						ofstream readB;
 
-						readB.open("weightHO.csv", std::ios_base::app);
+						readB.open("weightHO.txt", std::ios_base::app);
 
 						readB << endl;
 
-						readB << m << ", " << n; //write Cell index
+						readB << (char)m << ", " << (char)n; //write Cell index
 
-						readB << ", " << weight2[m][n];
+						readB << ", " << (char)weight2[m][n];
 
 						readB.close();
 
