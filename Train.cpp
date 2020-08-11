@@ -1097,7 +1097,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 				for (int i = 0; i < 4; i++) {
 
-					for ((int n = 25 * i; n < 25 * (i + 1); n++) {
+					for (int n = 25 * i; n < 25 * (i + 1); n++) {
 
 						sprintf(fileHO, "%d", i);
 
