@@ -1076,7 +1076,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 								std::ofstream readA("weightIH.txt", std::ios::out | std::ios_base::app);
 
 														std::cout << finalbatch << std::endl;
-														std::cout << readA.is_open() << std::endl;
+											
 
 								readA << endl;
 
