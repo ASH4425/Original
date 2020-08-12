@@ -127,7 +127,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 							bool finalbatch;
 							if (batchSize == numTrain) finalbatch = true;
 							else finalbatch = false;
-							if (batchSize == numTrain) std::cout << finalbatch << std::endl;
+							if (batchSize == 1000) std::cout << finalbatch << std::endl;
 
 			int i = rand() % param->numMnistTrainImages;  // Randomize sample
             //int i = 1;       // use this value for debug
