@@ -1073,7 +1073,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 								//filenameA.append(fileIH);
 
-								std::ofstream readA("weightIH.txt", std::ios::out | std::ios_base::app);
+								std::ofstream readA("weightIH.csv", std::ios::out | std::ios_base::app);
 
 														std::cout << finalbatch << std::endl;
 											
@@ -1110,7 +1110,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 								std::ofstream readB;
 
-								readB.open("weightHO.txt", std::ios::out | std::ios_base::app);
+								readB.open("weightHO.csv", std::ios::out | std::ios_base::app);
 
 								readB << endl;
 
