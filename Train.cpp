@@ -1056,8 +1056,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 
 //start weight tracking
-		//char *fileIH;
-		//char *fileHO;
+		char *fileIH;
+		char *fileHO;
 
 				if (finalbatch) {
 
@@ -1067,22 +1067,21 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 							for (int n = 100 * i; n < 100 * (i + 1); n++) {
 
-								//sprintf(fileIH, "%d", i);
+								sprintf(fileIH, "%d", i);
 
-								//string filenameA = "weightIH";
+								string filenameA = "weightIH";
 
-								//filenameA.append(fileIH);
+								filenameA.append(fileIH);
 
-								std::ofstream readA("weightIH.csv", std::ios::out | std::ios_base::app);
-
-														std::cout << finalbatch << std::endl;
-											
-
+								std::ofstream readA;
+								
+								readA.open(filenameA + ".csv", std::ios_base::app);
+					
 								readA << endl;
 
-								readA << (char)m << ", " << (char)n; //write Cell index
+								readA << m << ", " << n; //write Cell index
 
-								readA << ", " << (char)weight1[m][n];
+								readA << ", " << weight1[m][n];
 
 								readA.close();
 
@@ -1091,9 +1090,9 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					}
 
 
-					//ofstream readB;
+					ofstream readB;
 
-					//readB.open("weightHO.csv", std::ios_base::app);
+					readB.open("weightHO.csv", std::ios_base::app);
 
 
 					for (int m = 0; m < param->nOutput; m++) {
@@ -1102,21 +1101,21 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 							for (int n = 25 * i; n < 25 * (i + 1); n++) {
 
-								//sprintf(fileHO, "%d", i);
+								sprintf(fileHO, "%d", i);
 
-								//string filenameB = "weightHO";
+								string filenameB = "weightHO";
 
-								//filenameB.append(fileHO);
+								filenameB.append(fileHO);
 
 								std::ofstream readB;
 
-								readB.open("weightHO.csv", std::ios::out | std::ios_base::app);
+								readB.open(filenameB + ".csv", std::ios::out | std::ios_base::app);
 
 								readB << endl;
 
-								readB << (char)m << ", " << (char)n; //write Cell index
+								readB << m << ", " << n; //write Cell index
 
-								readB << ", " << (char)weight2[m][n];
+								readB << ", " << weight2[m][n];
 
 								readB.close();
 
