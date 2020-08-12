@@ -1056,7 +1056,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 
 //start weight tracking
-		/*char *fileIH;
+		char *fileIH;
 		char *fileHO;
 
 				if (finalbatch) {
@@ -1090,9 +1090,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					}
 
 
-					ofstream readB;
-
-					readB.open("weightHO.csv", std::ios_base::app);
+					
 
 
 					for (int m = 0; m < param->nOutput; m++) {
@@ -1124,7 +1122,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					}
 				}
 		// end of weight tracking code
-				*/
+				
 		}
     }
 }
