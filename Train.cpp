@@ -125,9 +125,9 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 							//is_finalbatch
 							bool finalbatch;
-							if (batchSize == numTrain) finalbatch = true;
+							if (batchSize == numTrain - 1) finalbatch = true;
 							else finalbatch = false;
-							if (batchSize == 1000) std::cout << finalbatch << std::endl;
+					
 
 			int i = rand() % param->numMnistTrainImages;  // Randomize sample
             //int i = 1;       // use this value for debug
@@ -1075,7 +1075,6 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 								std::ofstream readA("weightIH.txt", std::ios::out | std::ios_base::app);
 
-								printf("finalbatch : %.2f%\n", (double)finalbatch);
 														std::cout << finalbatch << std::endl;
 														std::cout << readA.is_open() << std::endl;
 
