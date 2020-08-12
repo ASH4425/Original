@@ -1061,11 +1061,11 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 				if (finalbatch) {
 
-					for (int m = 0; m < param->nHide; m++) {
+					for (int m = 0; m < 2; m++) {
 
-						for (int i = 0; i < 4; i++) {
+						for (int i = 0; i < 1; i++) {
 
-							for (int n = 100 * i; n < 100 * (i + 1); n++) {
+							for (int n = 10 * i; n < 10 * (i + 1); n++) {
 
 								//sprintf(fileIH, "%d", i);
 
@@ -1075,13 +1075,13 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 								std::ofstream readA;
 								
-								readA.open(filenameA + ".txt", std::ios_base::out);
+								readA.open(filenameA + ".txt", std::ios_base::app);
 					
-								//readA << endl;
+								readA << endl;
 
-								//readA << (char)m << ", " <<(char)n; //write Cell index
-								readA.write((string)m + "," + (string)n + (string)weight1[m][n]);
-								//readA << ", " << (char)weight1[m][n];
+								readA << (char)m << ", " <<(char)n; //write Cell index
+
+								readA << ", " << (char)weight1[m][n];
 
 								readA.close();
 
@@ -1115,8 +1115,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 								readB << ", " << (char)weight2[m][n];
 
-								readB.close();*/
-
+								readB.close();
+								*/
 							}
 						}
 					}
