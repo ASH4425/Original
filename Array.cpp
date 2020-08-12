@@ -80,18 +80,6 @@ double Array::ReadCell(int x, int y, char* mode) {
 		
 			static_cast<eNVM*>(cell[x][y])->readTime = time(NULL);
 			static_cast<eNVM*>(cell[x][y])->waitTime = static_cast<eNVM*>(cell[x][y])->readTime - static_cast<eNVM*>(cell[x][y])->latestWriteTime;
-
-			//Simplified Drift Effect
-			/*double driftCoeff;
-			double driftCoeffDepend = 0.2;
-			double maxdriftCoeff = 0.1;
-			double mindriftCoeff = 0.0;
-			
-	
-			std::mt19937 localGen;	// It's OK not to use the external gen, since here the device-to-device vairation is a one-time deal
-			localGen.seed(std::time(0));
-			*/
-
 			
 			/* Cycle-to-cycle weight update variation */
 
