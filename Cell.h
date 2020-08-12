@@ -83,6 +83,8 @@ public:
 	std::normal_distribution<double> *gaussian_dist5;	// Normal distribution object
 	std::normal_distribution<double>* gaussian_dist6;	// Normal distribution object
 	std::normal_distribution<double>* gaussian_dist7;	// Normal distribution object
+	std::normal_distribution<double>* gaussian_dist8;	// Normal distribution object
+	std::normal_distribution<double>* gaussian_dist9;	// Normal distribution object
 	std::normal_distribution<double> *gaussian_dist_maxConductance;	// Normal distribution object
 	std::normal_distribution<double> *gaussian_dist_minConductance;	// Normal distribution object
 	/* Need the 4 variables below if nonlinearIV=true */
@@ -99,8 +101,12 @@ public:
 	double driftCoeffDepend;
 	const double maxdriftCoeff = 0.1;
 	const double mindriftCoeff = 0.0;
-	double driftsigmaDtoD;
-	double driftsigmaCtoC;
+	const double meanDriftCoeffDepend = 0.2;
+
+	double driftCoeffsigmaDtoD;
+	double driftCoeffDependsigmaDtoD;
+	double driftCoeffsigmaCtoC;
+	double driftCoeffDependsigmaCtoC;
 
 	/*WaitTime estimation*/
 	long waitTime;

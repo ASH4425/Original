@@ -307,14 +307,33 @@ RealDevice::RealDevice(int x, int y) {
 	std::mt19937 localGen;	// It's OK not to use the external gen, since here the device-to-device vairation is a one-time deal
 	localGen.seed(std::time(0));
 	
-				//driftCoeff D2D variaiton, C2C variation
-				driftsigmaDtoD = 0.2;	// Sigma of device-to-device weight update vairation in gaussian distribution
-				gaussian_dist6 = new std::normal_distribution<double>(0, driftsigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
-				driftCoeffDepend += (*gaussian_dist6)(localGen);
+				//driftCoeff, driftCoeffDepend D2D variaiton, C2C variation
+				driftCoeffDependsigmaDtoD = 0.2 * meanDriftCoeffDepend;	// Sigma of device-to-device weight update vairation in gaussian distribution
+				driftCoeffsigmaDtoD = 0.2 * (maxdriftCoeff - mindriftCoeff);
+				
+				gaussian_dist6 = new std::normal_distribution<double>(0, driftCoeffDependsigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
+				driftCoeffDepend = 0.2 + (*gaussian_dist6)(localGen);
+				
+				gaussian_dist7 = new std::normal_distribution<double>(0, driftCoeffsigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
+				
+
+				if (static_cast<eNVM*>(cell[x][y])->conductance > 2e-06) {
+					driftCoeff = 0.0;
+				}
+				else {
+					driftCoeff = driftCoeffDepend * log(0.5e-06 / static_cast<eNVM*>(cell[x][y])->conductance) + 0.1;
+				}
+
+				driftCoeff += (*gaussian_dist7)(localGen);
+
+				if (driftCoeff < mindriftCoeff) driftCoeff = mindriftCoeff;
+				if (driftCoeff > maxdriftCoeff) driftCoeff = maxdriftCoeff;
 
 
-				driftsigmaCtoC = 0.2 * (maxdriftCoeff - mindriftCoeff);	// Sigma of cycle-to-cycle weight update vairation: defined as the percentage of conductance range
-				gaussian_dist7 = new std::normal_distribution<double>(0, driftsigmaCtoC);    // Set up mean and stddev for cycle-to-cycle weight update vairation
+				driftCoeffDependsigmaCtoC = 0.2 * meanDriftCoeffDepend;
+				driftCoeffsigmaCtoC = 0.2 * (maxdriftCoeff - mindriftCoeff);	// Sigma of cycle-to-cycle weight update vairation: defined as the percentage of conductance range
+				gaussian_dist8 = new std::normal_distribution<double>(0, driftCoeffDependsigmaCtoC);    // Set up mean and stddev for cycle-to-cycle weight update vairation
+				gaussian_dist9 = new std::normal_distribution<double>(0, driftCoeffsigmaCtoC);    // Set up mean and stddev for cycle-to-cycle weight update vairation
 
 
 	/* Device-to-device weight update variation */
@@ -402,8 +421,9 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 	/* Cycle-to-cycle variation */
 	extern std::mt19937 gen;
 
-				//driftCoeff C2C variation
-				driftCoeff += (*gaussian_dist7)(gen);
+				//driftCoeff, driftCoeffDepend C2C variation
+				driftCoeffDepend += (*gaussian_dist8)(gen);
+				driftCoeff += (*gaussian_dist9)(gen);
 
 	if (sigmaCtoC && numPulse != 0) {
 		conductanceNew += (*gaussian_dist3)(gen) * sqrt(abs(numPulse));	// Absolute variation
