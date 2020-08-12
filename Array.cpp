@@ -40,6 +40,8 @@
 #include "Array.h"
 #include <time.h>
 #include "Train.h"
+#include <ctime>
+#include <random>
 
 int counter=0;
 double Array::ReadCell(int x, int y, char* mode) {
@@ -80,23 +82,30 @@ double Array::ReadCell(int x, int y, char* mode) {
 			static_cast<eNVM*>(cell[x][y])->waitTime = static_cast<eNVM*>(cell[x][y])->readTime - static_cast<eNVM*>(cell[x][y])->latestWriteTime;
 
 			//Simplified Drift Effect
-			double driftCoeff;
+			/*double driftCoeff;
 			double driftCoeffDepend = 0.2;
 			double maxdriftCoeff = 0.1;
 			double mindriftCoeff = 0.0;
+			
+	
+			std::mt19937 localGen;	// It's OK not to use the external gen, since here the device-to-device vairation is a one-time deal
+			localGen.seed(std::time(0));
+			*/
 
+			
+			/* Cycle-to-cycle weight update variation */
 
 			if (static_cast<eNVM*>(cell[x][y])->conductance > 2e-06) {
-				driftCoeff = 0.0;
+				static_cast<eNVM*>(cell[x][y])->driftCoeff = 0.0;
 			}
 			else {
-				driftCoeff = driftCoeffDepend * log(0.5e-06 / static_cast<eNVM*>(cell[x][y])->conductance) + 0.1;
+				static_cast<eNVM*>(cell[x][y])->driftCoeff = static_cast<eNVM*>(cell[x][y])->driftCoeffDepend * log(0.5e-06 / static_cast<eNVM*>(cell[x][y])->conductance) + 0.1;
 			}
 
-			if (driftCoeff < mindriftCoeff) driftCoeff = mindriftCoeff;
-			if (driftCoeff > maxdriftCoeff) driftCoeff = maxdriftCoeff;
+			if (static_cast<eNVM*>(cell[x][y])->driftCoeff < static_cast<eNVM*>(cell[x][y])->mindriftCoeff) static_cast<eNVM*>(cell[x][y])->driftCoeff = static_cast<eNVM*>(cell[x][y])->mindriftCoeff;
+			if (static_cast<eNVM*>(cell[x][y])->driftCoeff > static_cast<eNVM*>(cell[x][y])->maxdriftCoeff) static_cast<eNVM*>(cell[x][y])->driftCoeff = static_cast<eNVM*>(cell[x][y])->maxdriftCoeff;
 
-			static_cast<eNVM*>(cell[x][y])->conductance *= pow((timeZero) / ((double)static_cast<eNVM*>(cell[x][y])->waitTime), driftCoeff);
+			static_cast<eNVM*>(cell[x][y])->conductance *= pow((timeZero) / ((double)static_cast<eNVM*>(cell[x][y])->waitTime), static_cast<eNVM*>(cell[x][y])->driftCoeff);
 		}
 
 

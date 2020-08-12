@@ -93,7 +93,12 @@ public:
 	double minConductanceVar;	// Sigma of minConductance variation (S)
 
 
-
+	double driftCoeff;
+	double driftCoeffDepend;
+	const double maxdriftCoeff = 0.1;
+	const double mindriftCoeff = 0.0;
+	double driftsigmaDtoD;
+	double driftsigmaCtoC;
 
 	/*WaitTime estimation*/
 	long waitTime;

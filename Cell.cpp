@@ -307,6 +307,16 @@ RealDevice::RealDevice(int x, int y) {
 	std::mt19937 localGen;	// It's OK not to use the external gen, since here the device-to-device vairation is a one-time deal
 	localGen.seed(std::time(0));
 	
+				//driftCoeff D2D variaiton, C2C variation
+				driftsigmaDtoD = 0.035 * 0.2;	// Sigma of device-to-device weight update vairation in gaussian distribution
+				gaussian_dist2 = new std::normal_distribution<double>(0, driftsigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
+				driftCoeffDepend += (*gaussian_dist2)(localGen);
+
+
+				driftsigmaCtoC = 0.035 * (maxdriftCoeff - mindriftCoeff);	// Sigma of cycle-to-cycle weight update vairation: defined as the percentage of conductance range
+				gaussian_dist3 = new std::normal_distribution<double>(0, driftsigmaCtoC);    // Set up mean and stddev for cycle-to-cycle weight update vairation
+
+
 	/* Device-to-device weight update variation */
 	NL_LTP = 0;	// LTP nonlinearity
 	NL_LTD = 0;	// LTD nonlinearity
@@ -391,6 +401,10 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 
 	/* Cycle-to-cycle variation */
 	extern std::mt19937 gen;
+
+				//driftCoeff C2C variation
+				driftCoeff += (*gaussian_dist3)(gen);
+
 	if (sigmaCtoC && numPulse != 0) {
 		conductanceNew += (*gaussian_dist3)(gen) * sqrt(abs(numPulse));	// Absolute variation
 	}
