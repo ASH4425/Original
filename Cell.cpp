@@ -308,7 +308,7 @@ RealDevice::RealDevice(int x, int y) {
 	localGen.seed(std::time(0));
 	
 				//driftCoeff D2D variaiton, C2C variation
-				driftsigmaDtoD = 0.035 * 0.2;	// Sigma of device-to-device weight update vairation in gaussian distribution
+				driftsigmaDtoD = 0.035;	// Sigma of device-to-device weight update vairation in gaussian distribution
 				gaussian_dist6 = new std::normal_distribution<double>(0, driftsigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
 				driftCoeffDepend += (*gaussian_dist6)(localGen);
 
