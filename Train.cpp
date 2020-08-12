@@ -1075,13 +1075,13 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 								std::ofstream readA;
 								
-								readA.open(filenameA + ".txt", std::ios_base::app);
+								readA.open(filenameA + ".txt", std::ios_base::out);
 					
-								readA << endl;
+								//readA << endl;
 
-								readA << (char)m << ", " <<(char)n; //write Cell index
-
-								readA << ", " << (char)weight1[m][n];
+								//readA << (char)m << ", " <<(char)n; //write Cell index
+								readA.write((string)m + "," + (string)n + (string)weight1[m][n]);
+								//readA << ", " << (char)weight1[m][n];
 
 								readA.close();
 
@@ -1093,7 +1093,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					
 
 
-					for (int m = 0; m < param->nOutput; m++) {
+					/*for (int m = 0; m < param->nOutput; m++) {
 
 						for (int i = 0; i < 4; i++) {
 
@@ -1115,7 +1115,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 								readB << ", " << (char)weight2[m][n];
 
-								readB.close();
+								readB.close();*/
 
 							}
 						}
