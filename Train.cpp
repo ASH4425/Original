@@ -1075,7 +1075,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 						ofstream readA;
 
-						readA.open("weightIH.txt", std::ios_base::app);
+						readA.open("weightIH.txt", std::ios::out | std::ios_base::app);
+
+						bool is_open();
+						std::cout << is_open() << std::endl;
 
 						readA << endl;
 
@@ -1109,7 +1112,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 						ofstream readB;
 
-						readB.open("weightHO.txt", std::ios_base::app);
+						readB.open("weightHO.txt", std::ios::out | std::ios_base::app);
 
 						readB << endl;
 

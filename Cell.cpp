@@ -308,8 +308,8 @@ RealDevice::RealDevice(int x, int y) {
 	localGen.seed(std::time(0));
 	
 				//driftCoeff, driftCoeffDepend D2D variaiton, C2C variation
-				driftCoeffDependsigmaDtoD = 0.5 * meanDriftCoeffDepend;	// Sigma of device-to-device weight update vairation in gaussian distribution
-				driftCoeffsigmaDtoD = 0.5 * (maxdriftCoeff - mindriftCoeff);
+				driftCoeffDependsigmaDtoD = 0.8 * meanDriftCoeffDepend;	// Sigma of device-to-device weight update vairation in gaussian distribution
+				driftCoeffsigmaDtoD = 0.8 * (maxdriftCoeff - mindriftCoeff);
 				
 				gaussian_dist6 = new std::normal_distribution<double>(0, driftCoeffDependsigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
 				driftCoeffDepend = 0.2 + (*gaussian_dist6)(localGen);
@@ -330,8 +330,8 @@ RealDevice::RealDevice(int x, int y) {
 				if (driftCoeff > maxdriftCoeff) driftCoeff = maxdriftCoeff;
 
 
-				driftCoeffDependsigmaCtoC = 0.5 * meanDriftCoeffDepend;
-				driftCoeffsigmaCtoC = 0.5 * (maxdriftCoeff - mindriftCoeff);	// Sigma of cycle-to-cycle weight update vairation: defined as the percentage of conductance range
+				driftCoeffDependsigmaCtoC = 0.8 * meanDriftCoeffDepend;
+				driftCoeffsigmaCtoC = 0.8 * (maxdriftCoeff - mindriftCoeff);	// Sigma of cycle-to-cycle weight update vairation: defined as the percentage of conductance range
 				gaussian_dist8 = new std::normal_distribution<double>(0, driftCoeffDependsigmaCtoC);    // Set up mean and stddev for cycle-to-cycle weight update vairation
 				gaussian_dist9 = new std::normal_distribution<double>(0, driftCoeffsigmaCtoC);    // Set up mean and stddev for cycle-to-cycle weight update vairation
 
