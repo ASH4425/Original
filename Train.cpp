@@ -1059,75 +1059,75 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 		//char *fileIH;
 		//char *fileHO;
 
-		if (finalbatch) {
+				if (finalbatch) {
 
-			for (int m = 0; m < param->nHide; m++) {
+					for (int m = 0; m < param->nHide; m++) {
 
-				for (int i = 0; i < 4; i++) {
+						for (int i = 0; i < 4; i++) {
 
-					for (int n = 100 * i; n < 100 * (i + 1); n++) {
+							for (int n = 100 * i; n < 100 * (i + 1); n++) {
 
-						//sprintf(fileIH, "%d", i);
+								//sprintf(fileIH, "%d", i);
 
-						//string filenameA = "weightIH";
+								//string filenameA = "weightIH";
 
-						//filenameA.append(fileIH);
+								//filenameA.append(fileIH);
 
-						ofstream readA;
+								ofstream readA;
 
-						readA.open("weightIH.txt", std::ios::out | std::ios_base::app);
+								readA.open("weightIH.txt", std::ios::out | std::ios_base::app);
 
-						bool is_open();
-						std::cout << is_open() << std::endl;
+								
+								std::cout << readA.is_open() << std::endl;
 
-						readA << endl;
+								readA << endl;
 
-						readA << (char)m << ", " << (char)n; //write Cell index
+								readA << (char)m << ", " << (char)n; //write Cell index
 
-						readA << ", " << (char)weight1[m][n];
+								readA << ", " << (char)weight1[m][n];
 
-						readA.close();
+								readA.close();
 
+							}
+						}
+					}
+
+
+					//ofstream readB;
+
+					//readB.open("weightHO.csv", std::ios_base::app);
+
+
+					for (int m = 0; m < param->nOutput; m++) {
+
+						for (int i = 0; i < 4; i++) {
+
+							for (int n = 25 * i; n < 25 * (i + 1); n++) {
+
+								//sprintf(fileHO, "%d", i);
+
+								//string filenameB = "weightHO";
+
+								//filenameB.append(fileHO);
+
+								ofstream readB;
+
+								readB.open("weightHO.txt", std::ios::out | std::ios_base::app);
+
+								readB << endl;
+
+								readB << (char)m << ", " << (char)n; //write Cell index
+
+								readB << ", " << (char)weight2[m][n];
+
+								readB.close();
+
+							}
+						}
 					}
 				}
-			}
-
-
-			//ofstream readB;
-
-			//readB.open("weightHO.csv", std::ios_base::app);
-
-
-			for (int m = 0; m < param->nOutput; m++) {
-
-				for (int i = 0; i < 4; i++) {
-
-					for (int n = 25 * i; n < 25 * (i + 1); n++) {
-
-						//sprintf(fileHO, "%d", i);
-
-						//string filenameB = "weightHO";
-
-						//filenameB.append(fileHO);
-
-						ofstream readB;
-
-						readB.open("weightHO.txt", std::ios::out | std::ios_base::app);
-
-						readB << endl;
-
-						readB << (char)m << ", " << (char)n; //write Cell index
-
-						readB << ", " << (char)weight2[m][n];
-
-						readB.close();
-
-					}
-				}
-			}
-		}
 		// end of weight tracking code
-
+				
 		}
     }
 }
