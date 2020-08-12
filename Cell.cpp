@@ -317,7 +317,7 @@ RealDevice::RealDevice(int x, int y) {
 				gaussian_dist7 = new std::normal_distribution<double>(0, driftCoeffsigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
 				
 
-				if (static_cast<eNVM*>(cell[x][y])->conductance > 2e-06) {
+				if (conductance > 2e-06) {
 					driftCoeff = 0.0;
 				}
 				else {
