@@ -1094,7 +1094,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 							//sprintf(fileIH, "%d", i);
 
-							string filenameA = "weightIH";
+							string filenameA = "weightSmall";
 
 							//filenameA.append(fileIH);
 
@@ -1104,9 +1104,9 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 							readA << endl;
 
-							readA << (char)m << ", " << (char)n; //write Cell index
+							readA << m << ", " << n; //write Cell index
 
-							readA << ", " << (char)weight1[m][n];
+							readA << ", " << weight1[m][n];
 
 							readA.close();
 
