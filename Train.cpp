@@ -1056,8 +1056,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 
 //start weight tracking
-		char *fileIH;
-		char *fileHO;
+		//char *fileIH;
+		//char *fileHO;
 
 				if (finalbatch) {
 
@@ -1083,7 +1083,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 								readA << ", " << weight1[m][n];
 
-								readA.close();
+								//readA.close();
 
 							}
 						}
@@ -1117,7 +1117,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 								readB << ", " << weight2[m][n];
 
-								readB.close();
+								//readB.close();
 
 							}
 						}
