@@ -83,13 +83,6 @@ double Array::ReadCell(int x, int y, char* mode) {
 			
 			/* Cycle-to-cycle weight update variation */
 
-			if (static_cast<eNVM*>(cell[x][y])->conductance > 2e-06) {
-				static_cast<eNVM*>(cell[x][y])->driftCoeff = 0.0;
-			}
-			else {
-				static_cast<eNVM*>(cell[x][y])->driftCoeff = static_cast<eNVM*>(cell[x][y])->driftCoeffDepend * log(0.5e-06 / static_cast<eNVM*>(cell[x][y])->conductance) + 0.1;
-			}
-
 			if (static_cast<eNVM*>(cell[x][y])->driftCoeff < static_cast<eNVM*>(cell[x][y])->mindriftCoeff) static_cast<eNVM*>(cell[x][y])->driftCoeff = static_cast<eNVM*>(cell[x][y])->mindriftCoeff;
 			if (static_cast<eNVM*>(cell[x][y])->driftCoeff > static_cast<eNVM*>(cell[x][y])->maxdriftCoeff) static_cast<eNVM*>(cell[x][y])->driftCoeff = static_cast<eNVM*>(cell[x][y])->maxdriftCoeff;
 
