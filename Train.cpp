@@ -1155,9 +1155,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				
 		
 				
-		
-    }
-}
+
 
 double SGD(double gradient, double learning_rate){
     return -learning_rate * gradient; 
