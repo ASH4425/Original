@@ -47,6 +47,7 @@
 #include <string>
 
 int counter=0;
+//Train.cpp -> Readcell(j, k) call 
 double Array::ReadCell(int x, int y, char* mode) {
     // mode is only for the 3T1C cell to select LSB or MSB
     // it should be "MSB_LTP","MSB_LTD" or "LSB" 
@@ -74,53 +75,56 @@ double Array::ReadCell(int x, int y, char* mode) {
 
 		double cellCurrent;
 
+				
+				/*readTime estimation*/
+				
+				/*		
+				double timeZero = 1e-06;
 
-		/*readTime estimation*/
+				//batchSizeZero : currentEpoch > 1 || batchSize > 0 => false 
+				if (static_cast<eNVM*>(cell[0][0])->batchSizeZero == false) {
 		
-		double timeZero = 1e-06;
+					static_cast<eNVM*>(cell[x][y])->readTime = time(NULL);
+					static_cast<eNVM*>(cell[x][y])->waitTime = static_cast<eNVM*>(cell[x][y])->readTime - static_cast<eNVM*>(cell[x][y])->latestWriteTime;
+				*/
 
-		if (static_cast<eNVM*>(cell[0][0])->batchSizeZero = false) {
-		
-			static_cast<eNVM*>(cell[x][y])->readTime = time(NULL);
-			static_cast<eNVM*>(cell[x][y])->waitTime = static_cast<eNVM*>(cell[x][y])->readTime - static_cast<eNVM*>(cell[x][y])->latestWriteTime;
+					/*
+					std::string filenameC = "waitTimenumPulse";
+
+					std::ofstream readC;
+
+					readC.open(filenameC + ".csv", std::ios_base::app);
+
+					readC << x << ", " << y; //write Cell index
+
+					readC << static_cast<eNVM*>(cell[x][y])->waitTime << ", " << static_cast<AnalogNVM*>(cell[x][y])->numPulse;
+
+					readC.close();
+					*/
+
+
+					/*
+					int notZeroi;
+					int notZeroj;
+					for (i = 0; i < 100; i++) {
+						for (j = 0; j < 400; j++) {
+							if (static_cast<AnalogNVM*>(cell[i][j])->numPulse != 0) { notZeroi = i; notZeroj = j; }
+						}
+					}
 			
-			/*
-			std::string filenameC = "waitTimenumPulse";
+						//std::cout << static_cast<eNVM*>(cell[0][0])->batchSizeZero << std::endl;
+						std::cout << static_cast<eNVM*>(cell[i][j])->waitTime << "  ";
+						std::cout << static_cast<AnalogNVM*>(cell[i][j])->numPulse << std::endl;
+					*/
+			
+				
+					/*
+					if (static_cast<eNVM*>(cell[x][y])->driftCoeff < static_cast<eNVM*>(cell[x][y])->mindriftCoeff) static_cast<eNVM*>(cell[x][y])->driftCoeff = static_cast<eNVM*>(cell[x][y])->mindriftCoeff;
+					if (static_cast<eNVM*>(cell[x][y])->driftCoeff > static_cast<eNVM*>(cell[x][y])->maxdriftCoeff) static_cast<eNVM*>(cell[x][y])->driftCoeff = static_cast<eNVM*>(cell[x][y])->maxdriftCoeff;
 
-			std::ofstream readC;
-
-			readC.open(filenameC + ".csv", std::ios_base::app);
-
-			readC << x << ", " << y; //write Cell index
-
-			readC << static_cast<eNVM*>(cell[x][y])->waitTime << ", " << static_cast<AnalogNVM*>(cell[x][y])->numPulse;
-
-			readC.close();
-			*/
-
-
-			/*
-			int notZeroi;
-			int notZeroj;
-			for (i = 0; i < 100; i++) {
-				for (j = 0; j < 400; j++) {
-					if (static_cast<AnalogNVM*>(cell[i][j])->numPulse != 0) { notZeroi = i; notZeroj = j; }
+					static_cast<eNVM*>(cell[x][y])->conductance *= pow((timeZero) / ((double)static_cast<eNVM*>(cell[x][y])->waitTime), static_cast<eNVM*>(cell[x][y])->driftCoeff);
 				}
-			}
-			
-				//std::cout << static_cast<eNVM*>(cell[0][0])->batchSizeZero << std::endl;
-				std::cout << static_cast<eNVM*>(cell[i][j])->waitTime << "  ";
-				std::cout << static_cast<AnalogNVM*>(cell[i][j])->numPulse << std::endl;
-			*/
-			
-			/* Cycle-to-cycle weight update variation */
-
-			if (static_cast<eNVM*>(cell[x][y])->driftCoeff < static_cast<eNVM*>(cell[x][y])->mindriftCoeff) static_cast<eNVM*>(cell[x][y])->driftCoeff = static_cast<eNVM*>(cell[x][y])->mindriftCoeff;
-			if (static_cast<eNVM*>(cell[x][y])->driftCoeff > static_cast<eNVM*>(cell[x][y])->maxdriftCoeff) static_cast<eNVM*>(cell[x][y])->driftCoeff = static_cast<eNVM*>(cell[x][y])->maxdriftCoeff;
-
-			static_cast<eNVM*>(cell[x][y])->conductance *= pow((timeZero) / ((double)static_cast<eNVM*>(cell[x][y])->waitTime), static_cast<eNVM*>(cell[x][y])->driftCoeff);
-		}
-
+					*/
 
 		if (static_cast<eNVM*>(cell[x][y])->nonlinearIV) 
         {
@@ -234,7 +238,7 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
     {	
 
 		//latestWrieteTime Update
-		if (deltaWeight != 0) static_cast<eNVM*>(cell[x][y])->latestWriteTime = time(NULL);
+		//if (deltaWeight != 0) static_cast<eNVM*>(cell[x][y])->latestWriteTime = time(NULL);
 		
 		
 		//printf("Writing cell....\n");
