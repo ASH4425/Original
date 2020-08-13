@@ -325,7 +325,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 #pragma omp parallel for reduction(+: sumArrayReadEnergy)
 
 
-				string filenameD = "HOwaitTimeinNano";
+				std::string filenameD = "HOwaitTimeinNano";
 
 				std::ofstream readD;
 
