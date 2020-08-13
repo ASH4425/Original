@@ -79,7 +79,7 @@ double Array::ReadCell(int x, int y, char* mode) {
 		
 		double timeZero = 1e-06;
 
-		if (static_cast<eNVM*>(cell[0][0])->batchSizeZero == false) {
+		if (static_cast<eNVM*>(cell[0][0])->batchSizeZero = false) {
 		
 			static_cast<eNVM*>(cell[x][y])->readTime = time(NULL);
 			static_cast<eNVM*>(cell[x][y])->waitTime = static_cast<eNVM*>(cell[x][y])->readTime - static_cast<eNVM*>(cell[x][y])->latestWriteTime;
