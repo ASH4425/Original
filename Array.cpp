@@ -84,7 +84,7 @@ double Array::ReadCell(int x, int y, char* mode) {
 					
 			if (x == 1 && y == 1) {
 				//std::cout << static_cast<eNVM*>(cell[0][0])->batchSizeZero << std::endl;
-				std::cout << static_cast<eNVM*>(cell[x][y])->waitTime;
+				std::cout << static_cast<eNVM*>(cell[x][y])->waitTime << "  ";
 				std::cout << static_cast<AnalogNVM*>(cell[x][y])->numPulse << std::endl;
 			}
 			
