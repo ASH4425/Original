@@ -109,9 +109,9 @@ public:
 	double driftCoeffDependsigmaCtoC;
 
 	/*WaitTime estimation*/
-	long waitTime;
-	long latestWriteTime;
-	long readTime;
+	std::chrono::nanoseconds waitTime;
+	std::chrono::system_clock::time_point latestWriteTime;
+	std::chrono::system_clock::time_point readTime;
 
 	bool batchSizeZero;
 };

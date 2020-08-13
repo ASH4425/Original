@@ -49,6 +49,7 @@
 #include <stdio.h>
 #include <string>
 #include <fstream>
+#include <chrono>
 
 using namespace std;
 
@@ -181,14 +182,14 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 									Isum += arrayIH->ReadCell(j, k);//ReadCell(j, k) : return cellCurrent
 
 									/*arrayIH readTime estimation*/
-									if(static_cast<eNVM*>(arrayIH->cell[0][0])->batchSizeZero == false) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->readTime = time(NULL);
+									if(static_cast<eNVM*>(arrayIH->cell[0][0])->batchSizeZero == false) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->readTime = std::chrono::system_clock::now();
 									static_cast<AnalogNVM*>(arrayIH->cell[j][k])->waitTime = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->readTime - static_cast<AnalogNVM*>(arrayIH->cell[j][k])->latestWriteTime;
 
 									double timeZero = 1e-06;
 									//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff < static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff;
 									//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff > static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff;
 
-									static_cast<AnalogNVM*>(arrayIH->cell[j][k])->conductance *= pow((timeZero) / ((double)static_cast<AnalogNVM*>(arrayIH->cell[j][k])->waitTime), 0.031);
+									static_cast<AnalogNVM*>(arrayIH->cell[j][k])->conductance *= pow((timeZero) / ((static_cast<AnalogNVM*>(arrayIH->cell[j][k])->waitTime).count), 0.031);
 
 
 									inputSum += arrayIH->GetMediumCellReadCurrent(j, k);    // get current of Dummy Column as reference
@@ -346,14 +347,14 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 									Isum += arrayHO->ReadCell(j, k);
 
 									/*arrayHO readTime estimation*/
-									if (static_cast<eNVM*>(arrayIH->cell[0][0])->batchSizeZero == false) static_cast<AnalogNVM*>(arrayHO->cell[j][k])->readTime = time(NULL);
+									if (static_cast<eNVM*>(arrayHO->cell[0][0])->batchSizeZero == false) static_cast<AnalogNVM*>(arrayHO->cell[j][k])->readTime = std::chrono::system_clock::now();
 									static_cast<AnalogNVM*>(arrayHO->cell[j][k])->waitTime = static_cast<AnalogNVM*>(arrayHO->cell[j][k])->readTime - static_cast<AnalogNVM*>(arrayHO->cell[j][k])->latestWriteTime;
 
 									double timeZero = 1e-06;
-									//if (static_cast<AnalogNVM*>(arrayHO->cell[j][k])->driftCoeff < static_cast<AnalogNVM*>(arrayHO->cell[j][k])->mindriftCoeff) static_cast<AnalogNVM*>(arrayHO->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayHO->cell[j][k])->mindriftCoeff;
-									//if (static_cast<AnalogNVM*>(arrayHO->cell[j][k])->driftCoeff > static_cast<AnalogNVM*>(arrayHO->cell[j][k])->maxdriftCoeff) static_cast<AnalogNVM*>(arrayHO->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayHO->cell[j][k])->maxdriftCoeff;
+									//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff < static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff;
+									//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff > static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff;
 
-									static_cast<AnalogNVM*>(arrayHO->cell[j][k])->conductance *= pow((timeZero) / ((double)static_cast<AnalogNVM*>(arrayHO->cell[j][k])->waitTime), 0.031);
+									static_cast<AnalogNVM*>(arrayHO->cell[j][k])->conductance *= pow((timeZero) / ((static_cast<AnalogNVM*>(arrayHO->cell[j][k])->waitTime).count), 0.031);
 
 
 									a1Sum += arrayHO->GetMediumCellReadCurrent(j, k);
@@ -587,7 +588,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 								/*latestWriteTime estimation*/
 								if (deltaWeight1[jj][k] != 0) {
-									static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->latestWriteTime = time(NULL);
+									static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->latestWriteTime = std::chrono::system_clock::now();
 
 										}
 
@@ -914,8 +915,9 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 								/*latestWriteTime estimation*/
 								if (deltaWeight2[jj][k] != 0) {
-									static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->latestWriteTime = time(NULL);
-									std::cout << jj << " " << k << " " << " " << deltaWeight2[jj][k] << " " << static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->waitTime << std::endl;
+									static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->latestWriteTime = std::chrono::system_clock::now();
+									std::cout << jj << " " << k << " " << " " << std::endl;
+									std::cout << deltaWeight2[jj][k] << " " << (static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->waitTime).count << std::endl;
 								}
 
 
