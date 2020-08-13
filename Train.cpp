@@ -923,10 +923,28 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 									/*latestWriteTime estimation*/
 									if (!(deltaWeight2[jj][k] == 0)) {
 										static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->latestWriteTime = std::chrono::system_clock::now();
-										std::cout << jj << " " << k << " " << " " << std::endl;
-										std::cout << deltaWeight2[jj][k] << " " << (static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->waitTime).count() << std::endl;
-										std::cout << " " << std::endl;
+										//std::cout << jj << " " << k << " " << " " << std::endl;
+										//std::cout << deltaWeight2[jj][k] << " " << (static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->waitTime).count() << std::endl;
+										//std::cout << " " << std::endl;
 									}
+
+									//sprintf(fileIH, "%d", i);
+
+									string filenameD = "HOwaitTime";
+
+									//filenameA.append(fileIH);
+
+									std::ofstream readD;
+
+									readD.open(filenameD + ".csv", std::ios_base::app);
+
+									readD << endl;
+
+									readD << jj << ", " << k; //write Cell index
+
+									readD << ", " << deltaWeight2[jj][k] << ", " << (static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->waitTime).count();
+
+									readD.close();
 
 
 								weight2[jj][k] = arrayHO->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
