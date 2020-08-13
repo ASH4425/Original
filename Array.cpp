@@ -83,7 +83,7 @@ double Array::ReadCell(int x, int y, char* mode) {
 			static_cast<eNVM*>(cell[x][y])->waitTime = static_cast<eNVM*>(cell[x][y])->readTime - static_cast<eNVM*>(cell[x][y])->latestWriteTime;
 					
 			if (x == 10 && y == 10) {
-				std::cout << static_cast<eNVM*>(cell[0][0])->batchSizeZero << std::endl;
+				//std::cout << static_cast<eNVM*>(cell[0][0])->batchSizeZero << std::endl;
 				std::cout << static_cast<eNVM*>(cell[x][y])->waitTime << std::endl;
 				std::cout << static_cast<AnalogNVM*>(cell[x][y])->numPulse << std::endl;
 			}
