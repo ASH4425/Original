@@ -588,6 +588,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 								/*latestWriteTime estimation*/
 								if (deltaWeight1[jj][k] != 0) {
 									static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->latestWriteTime = time(NULL);
+
 										}
 
 
@@ -912,8 +913,9 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 								arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true);
 
 								/*latestWriteTime estimation*/
-								if (deltaWeight1[jj][k] != 0) {
+								if (deltaWeight2[jj][k] != 0) {
 									static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->latestWriteTime = time(NULL);
+									std::cout << jj << " " << k << " " << " " << deltaWeight2[jj][k] << " " << static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->waitTime << std::endl;
 								}
 
 
