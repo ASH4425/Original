@@ -1086,21 +1086,21 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 			if (finalbatch) {
 
-				for (int m = 0; m < 2; m++) {
+				for (int m = 0; m < param->nHide; m++) {
 
-					for (int i = 0; i < 1; i++) {
+					for (int i = 0; i < 4; i++) {
 
-						for (int n = 10 * i; n < 10 * (i + 1); n++) {
+						for (int n = 100 * i; n < 100 * (i + 1); n++) {
 
 							//sprintf(fileIH, "%d", i);
 
-							string filenameA = "weightSmall";
+							string filenameA = "weightIHtest";
 
 							//filenameA.append(fileIH);
 
 							std::ofstream readA;
 
-							readA.open(filenameA + ".txt", std::ios_base::app);
+							readA.open(filenameA + ".csv", std::ios_base::app);
 
 							readA << endl;
 
@@ -1118,7 +1118,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 
 
-				/*for (int m = 0; m < param->nOutput; m++) {
+				for (int m = 0; m < param->nOutput; m++) {
 
 					for (int i = 0; i < 4; i++) {
 
@@ -1126,25 +1126,25 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 							//sprintf(fileHO, "%d", i);
 
-								string filenameB = "weightHO";
+								string filenameB = "weightHOtest";
 
 								//filenameB.append(fileHO);
 
 								std::ofstream readB;
 
-								readB.open(filenameB + ".txt", std::ios::out | std::ios_base::app);
+								readB.open(filenameB + ".csv", std::ios::out | std::ios_base::app);
 
 								readB << endl;
 
-								readB << (char)m << ", " << (char)n; //write Cell index
+								readB << m << ", " << n; //write Cell index
 
-								readB << ", " << (char)weight2[m][n];
+								readB << ", " << weight2[m][n];
 
 								readB.close();
 								
 						}
 					}
-				}*/
+				}
 
 
 			}// end of weight tracking code
