@@ -42,6 +42,7 @@
 #include <random>
 #include <vector>
 #include <time.h>
+#include <chrono>
 
 class Cell {
 public:
