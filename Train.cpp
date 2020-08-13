@@ -1084,7 +1084,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					//char *fileIH;
 					//char *fileHO;
 
-			if (finalbatch) {
+			if (finalbatch && param->currentEpoch == param->totalNumEpochs) {
 
 				for (int m = 0; m < param->nHide; m++) {
 
