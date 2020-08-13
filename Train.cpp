@@ -323,6 +323,13 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				}
 
 #pragma omp parallel for reduction(+: sumArrayReadEnergy)
+
+
+				string filenameD = "HOwaitTimeinNano";
+
+				std::ofstream readD;
+
+
 				for (int j = 0; j < param->nOutput; j++) {
 					if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayHO->cell[0][0])) {  // Analog eNVM
 						if (static_cast<eNVM*>(arrayHO->cell[0][0])->cmosAccess) {  // 1T1R
@@ -344,7 +351,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 							double Isum = 0;    // weighted sum current
 							double IsumMax = 0; // Max weighted sum current
 							double IsumMin = 0;
-							double a1Sum = 0;    // Weighted sum current of input vector * weight=1 column                            
+							double a1Sum = 0;    // Weighted sum current of input vector * weight=1 column      
 							for (int k = 0; k < param->nHide; k++) {
 								if ((da1[k] >> n) & 1) {    // if the nth bit of da1[k] is 1  
 									Isum += arrayHO->ReadCell(j, k);
@@ -356,6 +363,19 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 									double timeZero = 1e-06;
 
 									double waitTimeinNano = std::chrono::duration_cast<std::chrono::nanoseconds>(static_cast<AnalogNVM*>(arrayHO->cell[j][k])->readTime - static_cast<AnalogNVM*>(arrayHO->cell[j][k])->latestWriteTime).count();
+
+
+
+									readD.open(filenameD + ".csv", std::ios_base::app);
+
+									readD << endl;
+
+									readD << j << ", " << k; //write Cell index
+
+									readD << ", " << waitTimeinNano << endl;
+
+									readD.close();
+
 
 					
 									//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff < static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff;
@@ -928,23 +948,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 										//std::cout << " " << std::endl;
 									}
 
-									//sprintf(fileIH, "%d", i);
 
-									string filenameD = "HOwaitTime";
-
-									//filenameA.append(fileIH);
-
-									std::ofstream readD;
-
-									readD.open(filenameD + ".csv", std::ios_base::app);
-
-									readD << endl;
-
-									readD << jj << ", " << k; //write Cell index
-
-									readD << ", " << deltaWeight2[jj][k] << ", " << (static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->waitTime).count();
-
-									readD.close();
 
 
 								weight2[jj][k] = arrayHO->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
