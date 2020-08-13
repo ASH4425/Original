@@ -43,6 +43,8 @@
 #include <ctime>
 #include <random>
 #include <iostream>
+#include <fstream>
+#include <string>
 
 int counter=0;
 double Array::ReadCell(int x, int y, char* mode) {
