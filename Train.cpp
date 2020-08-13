@@ -1092,6 +1092,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 						for (int n = 100 * i; n < 100 * (i + 1); n++) {
 
+							std::cout << param->currentEpoch << std::endl;
+
 							//sprintf(fileIH, "%d", i);
 
 							string filenameA = "weightIHtest";
