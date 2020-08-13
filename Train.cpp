@@ -1079,6 +1079,20 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			}
 
 
+			int notZeroi;
+			int notZeroj;
+			for (i = 0; i < 100; i++) {
+				for (j = 0; j < 400; j++) {
+					if (static_cast<AnalogNVM*>(cell[i][j])->numPulse != 0) { notZeroi = i; notZeroj = j; }
+				}
+			}
+
+			//std::cout << static_cast<eNVM*>(cell[0][0])->batchSizeZero << std::endl;
+			std::cout << static_cast<eNVM*>(cell[i][j])->waitTime << "  ";
+			std::cout << static_cast<AnalogNVM*>(cell[i][j])->numPulse << std::endl;
+
+
+
 
 			//start weight tracking
 					//char *fileIH;
