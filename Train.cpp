@@ -307,10 +307,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			}
 
 			/* Second layer (hidder layer to the output layer) */
-			string filenameD = "HOwaitTimeinNano";
-
-			std::ofstream readD;
-
+			
 
 
 			std::fill_n(outN2, param->nOutput, 0);
@@ -363,7 +360,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 									double waitTimeinNano = std::chrono::duration_cast<std::chrono::nanoseconds>(static_cast<AnalogNVM*>(arrayHO->cell[j][k])->readTime - static_cast<AnalogNVM*>(arrayHO->cell[j][k])->latestWriteTime).count();
 
-				
+									string filenameD = "HOwaitTimeinNano";
+
+									std::ofstream readD;
+
 
 									readD.open(filenameD + ".csv", std::ios_base::app);
 
