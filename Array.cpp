@@ -85,10 +85,11 @@ double Array::ReadCell(int x, int y, char* mode) {
 			static_cast<eNVM*>(cell[x][y])->waitTime = static_cast<eNVM*>(cell[x][y])->readTime - static_cast<eNVM*>(cell[x][y])->latestWriteTime;
 			
 
+			string filenameC = "waitTimenumPulse";
 
 			std::ofstream readC;
 
-			readC.open("cell_waitTime_numPulse" + ".csv", std::ios_base::app);
+			readC.open(filenameC + ".csv", std::ios_base::app);
 
 			readC << x << ", " << y; //write Cell index
 
