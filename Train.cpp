@@ -613,6 +613,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
 
 								/*latestWriteTime estimation*/
+								if ((static_cast<eNVM*>(arrayIH->cell[0][0])->batchSizeZero == true) && (param->currentEpoch == 1)) static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->latestWriteTime = std::chrono::system_clock::now();
 								if (deltaWeight1[jj][k] != 0) {
 									static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->latestWriteTime = std::chrono::system_clock::now();
 
@@ -940,11 +941,12 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 								arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true);
 
 									/*latestWriteTime estimation*/
+									if ((static_cast<eNVM*>(arrayIH->cell[0][0])->batchSizeZero == true) && (param->currentEpoch == 1)) static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->latestWriteTime = std::chrono::system_clock::now();
 									if (!(deltaWeight2[jj][k] == 0)) {
 										static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->latestWriteTime = std::chrono::system_clock::now();
-										//std::cout << jj << " " << k << " " << " " << std::endl;
-										//std::cout << deltaWeight2[jj][k] << " " << (static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->waitTime).count() << std::endl;
-										//std::cout << " " << std::endl;
+										std::cout << jj << " " << k << " " << " " << std::endl;
+										std::cout << deltaWeight2[jj][k] << " " << (static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->waitTime).count() << std::endl;
+										std::cout << " " << std::endl;
 									}
 
 
