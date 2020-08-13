@@ -1083,12 +1083,16 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			int notZeroj;
 			for (int bi = 0; bi < 100; bi++) {
 				for (int bj = 0; bj < 400; bj++) {
-					if (static_cast<AnalogNVM*>(arrayIH->cell[bi][bj])->numPulse != 0) { notZeroi = bi; notZeroj = bj; }
+					if (static_cast<AnalogNVM*>(arrayIH->cell[bi][bj])->numPulse != 0) { 
+						notZeroi = bi; 
+						notZeroj = bj;
+						std::cout << bi << " " << bj << std::endl;
+					}
 				}
 			}
 
 			//std::cout << static_cast<eNVM*>(cell[0][0])->batchSizeZero << std::endl;
-			std::cout << static_cast<AnalogNVM*>(arrayIH->cell[notZeroi][notZeroj])->waitTime << "  ";
+			std::cout << static_cast<eNVM*>(arrayIH->cell[notZeroi][notZeroj])->waitTime << "  ";
 			std::cout << static_cast<AnalogNVM*>(arrayIH->cell[notZeroi][notZeroj])->numPulse << std::endl;
 
 
