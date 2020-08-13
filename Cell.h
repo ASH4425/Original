@@ -110,7 +110,7 @@ public:
 	double driftCoeffDependsigmaCtoC;
 
 	/*WaitTime estimation*/
-	std::chrono::nanoseconds waitTime;
+	std::chrono::duration<double> waitTime;
 	std::chrono::system_clock::time_point latestWriteTime;
 	std::chrono::system_clock::time_point readTime;
 
