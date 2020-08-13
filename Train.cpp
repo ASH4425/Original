@@ -1085,6 +1085,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					//char *fileHO;
 
 			if (finalbatch && (param->currentEpoch == param->totalNumEpochs)) {
+							std::cout << param->currentEpoch << std::endl;
 
 				for (int m = 0; m < param->nHide; m++) {
 
@@ -1092,7 +1093,6 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 						for (int n = 100 * i; n < 100 * (i + 1); n++) {
 
-							std::cout << param->currentEpoch << std::endl;
 
 							//sprintf(fileIH, "%d", i);
 
