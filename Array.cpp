@@ -84,7 +84,7 @@ double Array::ReadCell(int x, int y, char* mode) {
 			static_cast<eNVM*>(cell[x][y])->readTime = time(NULL);
 			static_cast<eNVM*>(cell[x][y])->waitTime = static_cast<eNVM*>(cell[x][y])->readTime - static_cast<eNVM*>(cell[x][y])->latestWriteTime;
 			
-
+			/*
 			std::string filenameC = "waitTimenumPulse";
 
 			std::ofstream readC;
@@ -96,6 +96,8 @@ double Array::ReadCell(int x, int y, char* mode) {
 			readC << static_cast<eNVM*>(cell[x][y])->waitTime << ", " << static_cast<AnalogNVM*>(cell[x][y])->numPulse;
 
 			readC.close();
+			*/
+
 
 			/*
 			int notZeroi;
