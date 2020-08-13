@@ -307,6 +307,12 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			}
 
 			/* Second layer (hidder layer to the output layer) */
+			string filenameD = "HOwaitTimeinNano";
+
+			std::ofstream readD;
+
+
+
 			std::fill_n(outN2, param->nOutput, 0);
 			std::fill_n(a2, param->nOutput, 0);
 			if (param->useHardwareInTrainingFF) {   // Hardware
@@ -322,14 +328,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					readPulseWidth = static_cast<eNVM*>(arrayHO->cell[0][0])->readPulseWidth;
 				}
 
-#pragma omp parallel for reduction(+: sumArrayReadEnergy)
-
-
-				std::string filenameD = "HOwaitTimeinNano";
-
-				std::ofstream readD;
-
-
+				#pragma omp parallel for reduction(+: sumArrayReadEnergy)
 				for (int j = 0; j < param->nOutput; j++) {
 					if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayHO->cell[0][0])) {  // Analog eNVM
 						if (static_cast<eNVM*>(arrayHO->cell[0][0])->cmosAccess) {  // 1T1R
@@ -364,7 +363,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 									double waitTimeinNano = std::chrono::duration_cast<std::chrono::nanoseconds>(static_cast<AnalogNVM*>(arrayHO->cell[j][k])->readTime - static_cast<AnalogNVM*>(arrayHO->cell[j][k])->latestWriteTime).count();
 
-
+				
 
 									readD.open(filenameD + ".csv", std::ios_base::app);
 
