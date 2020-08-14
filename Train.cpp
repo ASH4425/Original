@@ -145,7 +145,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayIH->cell[0][0]))
 				{
 
-					if ((param->currentEpoch  > 1) || batchSize > 0) static_cast<eNVM*>(arrayIH->cell[0][0])->batchSizeZero = false;
+					if ((param->currentEpoch  > 1) || (batchSize > 0)) static_cast<eNVM*>(arrayIH->cell[0][0])->batchSizeZero = false;
 
 
 
@@ -360,7 +360,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 									double waitTimeinNano = std::chrono::duration_cast<std::chrono::nanoseconds>(static_cast<AnalogNVM*>(arrayHO->cell[j][k])->readTime - static_cast<AnalogNVM*>(arrayHO->cell[j][k])->latestWriteTime).count();
 
-									string filenameD = "HOwaitTimeinNano";
+									string filenameD = "HOwaitTimeinNano1";
 
 									std::ofstream readD;
 
