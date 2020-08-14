@@ -196,11 +196,11 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 									static_cast<AnalogNVM*>(arrayIH->cell[j][k])->conductance *= pow((timeZero / (waitTimeinNano * 1e+09)), 0.031);
 
 									if ((static_cast<AnalogNVM*>(arrayIH->cell[j][k])->conductance) < (static_cast<RealDevice*>(arrayIH->cell[j][k])->minConductance)) {
-										static_cast<AnalogNVM*>(arrayIH->cell[j][k])->conductance) = (static_cast<RealDevice*>(arrayIH->cell[j][k])->minConductance;
+										static_cast<AnalogNVM*>(arrayIH->cell[j][k])->conductance = static_cast<RealDevice*>(arrayIH->cell[j][k])->minConductance;
 									}
 
 									if ((static_cast<AnalogNVM*>(arrayIH->cell[j][k])->conductance) > (static_cast<RealDevice*>(arrayIH->cell[j][k])->maxConductance)) {
-										static_cast<AnalogNVM*>(arrayIH->cell[j][k])->conductance) = (static_cast<RealDevice*>(arrayIH->cell[j][k])->maxConductance;
+										static_cast<AnalogNVM*>(arrayIH->cell[j][k])->conductance = static_cast<RealDevice*>(arrayIH->cell[j][k])->maxConductance;
 									}
 
 									Isum += arrayIH->ReadCell(j, k);//ReadCell(j, k) : return cellCurrent
@@ -396,11 +396,11 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 									static_cast<AnalogNVM*>(arrayHO->cell[j][k])->conductance *= pow((timeZero / (waitTimeinNano * 1e+09)), 0.031);
 
 									if ((static_cast<AnalogNVM*>(arrayHO->cell[j][k])->conductance) < (static_cast<RealDevice*>(arrayHO->cell[j][k])->minConductance)) {
-										static_cast<AnalogNVM*>(arrayHO->cell[j][k])->conductance) = (static_cast<RealDevice*>(arrayHO->cell[j][k])->minConductance;
+										static_cast<AnalogNVM*>(arrayHO->cell[j][k])->conductance = static_cast<RealDevice*>(arrayHO->cell[j][k])->minConductance;
 									}
 
 									if ((static_cast<AnalogNVM*>(arrayHO->cell[j][k])->conductance) > (static_cast<RealDevice*>(arrayHO->cell[j][k])->maxConductance)) {
-										static_cast<AnalogNVM*>(arrayHO->cell[j][k])->conductance) = (static_cast<RealDevice*>(arrayHO->cell[j][k])->maxConductance;
+										static_cast<AnalogNVM*>(arrayHO->cell[j][k])->conductance = static_cast<RealDevice*>(arrayHO->cell[j][k])->maxConductance;
 									}
 									
 									Isum += arrayHO->ReadCell(j, k);
