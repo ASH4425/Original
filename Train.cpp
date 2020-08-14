@@ -325,9 +325,9 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					readPulseWidth = static_cast<eNVM*>(arrayHO->cell[0][0])->readPulseWidth;
 				}
 
-									string filenameD = "HOwaitTimeinNano1";
+									//string filenameD = "HOwaitTimeinNano1";
 
-									std::ofstream readD;
+									//std::ofstream readD;
 
 
 				#pragma omp parallel for reduction(+: sumArrayReadEnergy)
@@ -366,7 +366,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 									double waitTimeinNano = std::chrono::duration_cast<std::chrono::nanoseconds>(static_cast<AnalogNVM*>(arrayHO->cell[j][k])->readTime - static_cast<AnalogNVM*>(arrayHO->cell[j][k])->latestWriteTime).count();
 
-									
+									/*
 									readD.open(filenameD + ".csv", std::ios_base::app);
 
 									readD << endl;
@@ -376,8 +376,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 									readD << ", " << waitTimeinNano << std::endl;
 
 									readD.close();
-									
+									*/
 
+									std::cout << j << ", " << k << std::endl;
+									std::cout << waitTimeinNano << std::endl;
 					
 									//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff < static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff;
 									//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff > static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff;
@@ -949,9 +951,11 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 									if ((static_cast<eNVM*>(arrayIH->cell[0][0])->batchSizeZero == true) && (param->currentEpoch == 1)) static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->latestWriteTime = std::chrono::system_clock::now();
 									if (!(deltaWeight2[jj][k] == 0)) {
 										static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->latestWriteTime = std::chrono::system_clock::now();
+										/*
 										std::cout << jj << " " << k << " " << std::endl;
 										std::cout << deltaWeight2[jj][k] << " " << (static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->waitTime).count() << std::endl;
 										std::cout << " " << std::endl;
+										*/
 									}
 
 
