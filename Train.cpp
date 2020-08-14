@@ -187,7 +187,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 									double timeZero = 1e-06;
 
-									double waitTimeinNano = std::chrono::duration_cast<std::chrono::nanoseconds>(static_cast<AnalogNVM*>(arrayIH->cell[j][k])->readTime - static_cast<AnalogNVM*>(arrayIH->cell[j][k])->latestWriteTime).count();
+									double waitTimeinNano = std::chrono::duration_cast<std::chrono::nanoseconds>((static_cast<AnalogNVM*>(arrayIH->cell[j][k])->readTime - static_cast<AnalogNVM*>(arrayIH->cell[j][k])->latestWriteTime).count());
 
 
 									//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff < static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff;
@@ -319,7 +319,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				double readPulseWidth;
 				if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayHO->cell[0][0])) {
 
-					if (batchSize > 0) static_cast<eNVM*>(arrayHO->cell[0][0])->batchSizeZero = false;
+					if ((param->currentEpoch > 1) || (batchSize > 0)) static_cast<eNVM*>(arrayHO->cell[0][0])->batchSizeZero = false;
 
 
 					readVoltage = static_cast<eNVM*>(arrayHO->cell[0][0])->readVoltage;
@@ -360,12 +360,12 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 									
 
 									/*arrayHO readTime estimation*/
-									if (static_cast<eNVM*>(arrayIH->cell[0][0])->batchSizeZero == false) static_cast<AnalogNVM*>(arrayHO->cell[j][k])->readTime = std::chrono::system_clock::now();
+									if (static_cast<eNVM*>(arrayHO->cell[0][0])->batchSizeZero == false) static_cast<AnalogNVM*>(arrayHO->cell[j][k])->readTime = std::chrono::system_clock::now();
 									static_cast<AnalogNVM*>(arrayHO->cell[j][k])->waitTime = static_cast<AnalogNVM*>(arrayHO->cell[j][k])->readTime - static_cast<AnalogNVM*>(arrayHO->cell[j][k])->latestWriteTime;
 									
 									double timeZero = 1e-06;
 
-									double waitTimeinNano = std::chrono::duration_cast<std::chrono::nanoseconds>(static_cast<AnalogNVM*>(arrayHO->cell[j][k])->readTime - static_cast<AnalogNVM*>(arrayHO->cell[j][k])->latestWriteTime).count();
+									double waitTimeinNano = std::chrono::duration_cast<std::chrono::nanoseconds>((static_cast<AnalogNVM*>(arrayHO->cell[j][k])->readTime - static_cast<AnalogNVM*>(arrayHO->cell[j][k])->latestWriteTime).count());
 
 									/*
 									readD.open(filenameD + ".csv", std::ios_base::app);
