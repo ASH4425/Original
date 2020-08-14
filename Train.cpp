@@ -179,7 +179,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 							double inputSum = 0;    // Weighted sum current of input vector * weight=1 column
 							for (int k = 0; k < param->nInput; k++) {
 								if ((dInput[i][k] >> n) & 1) {    // if the nth bit of dInput[i][k] is 1
-									Isum += arrayIH->ReadCell(j, k);//ReadCell(j, k) : return cellCurrent
+									
 
 									/*arrayIH readTime estimation*/
 									if (static_cast<eNVM*>(arrayIH->cell[0][0])->batchSizeZero == false) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->readTime = std::chrono::system_clock::now();
@@ -195,6 +195,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 									static_cast<AnalogNVM*>(arrayIH->cell[j][k])->conductance *= pow((timeZero / (waitTimeinNano * 1e+09)), 0.031);
 
+									Isum += arrayIH->ReadCell(j, k);//ReadCell(j, k) : return cellCurrent
 									inputSum += arrayIH->GetMediumCellReadCurrent(j, k);    // get current of Dummy Column as reference
 									sumArrayReadEnergy += arrayIH->wireCapRow * readVoltage * readVoltage; // Selected BLs (1T1R) or Selected WLs (cross-point)
 								}
@@ -356,7 +357,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 							double a1Sum = 0;    // Weighted sum current of input vector * weight=1 column      
 							for (int k = 0; k < param->nHide; k++) {
 								if ((da1[k] >> n) & 1) {    // if the nth bit of da1[k] is 1  
-									Isum += arrayHO->ReadCell(j, k);
+									
 
 									/*arrayHO readTime estimation*/
 									if (static_cast<eNVM*>(arrayIH->cell[0][0])->batchSizeZero == false) static_cast<AnalogNVM*>(arrayHO->cell[j][k])->readTime = std::chrono::system_clock::now();
@@ -385,7 +386,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 									//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff > static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff;
 
 									static_cast<AnalogNVM*>(arrayHO->cell[j][k])->conductance *= pow((timeZero / (waitTimeinNano * 1e+09)), 0.031);
-
+									
+									Isum += arrayHO->ReadCell(j, k);
 
 									a1Sum += arrayHO->GetMediumCellReadCurrent(j, k);
 									sumArrayReadEnergy += arrayHO->wireCapRow * readVoltage * readVoltage; // Selected BLs (1T1R) or Selected WLs (cross-point)								                                  
