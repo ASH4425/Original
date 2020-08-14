@@ -365,14 +365,13 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 									double waitTimeinNano = std::chrono::duration_cast<std::chrono::nanoseconds>(static_cast<AnalogNVM*>(arrayHO->cell[j][k])->readTime - static_cast<AnalogNVM*>(arrayHO->cell[j][k])->latestWriteTime).count();
 
 
-
 									readD.open(filenameD + ".csv", std::ios_base::app);
 
 									readD << endl;
 
 									readD << j << ", " << k; //write Cell index
 
-									readD << ", " << waitTimeinNano << endl;
+									readD << ", " << waitTimeinNano << std::endl;
 
 									readD.close();
 
