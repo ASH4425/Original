@@ -325,6 +325,11 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					readPulseWidth = static_cast<eNVM*>(arrayHO->cell[0][0])->readPulseWidth;
 				}
 
+									string filenameD = "HOwaitTimeinNano1";
+
+									std::ofstream readD;
+
+
 				#pragma omp parallel for reduction(+: sumArrayReadEnergy)
 				for (int j = 0; j < param->nOutput; j++) {
 					if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayHO->cell[0][0])) {  // Analog eNVM
@@ -341,9 +346,6 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						}
 					}
 
-									string filenameD = "HOwaitTimeinNano1";
-
-									std::ofstream readD;
 
 					for (int n = 0; n < param->numBitInput; n++) {
 						double pSumMaxAlgorithm = pow(2, n) / (param->numInputLevel - 1) * arrayHO->arrayRowSize;    // Max algorithm partial weighted sum for the nth vector bit (if both max input value and max weight are 1)
@@ -364,7 +366,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 									double waitTimeinNano = std::chrono::duration_cast<std::chrono::nanoseconds>(static_cast<AnalogNVM*>(arrayHO->cell[j][k])->readTime - static_cast<AnalogNVM*>(arrayHO->cell[j][k])->latestWriteTime).count();
 
-
+									
 									readD.open(filenameD + ".csv", std::ios_base::app);
 
 									readD << endl;
@@ -374,7 +376,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 									readD << ", " << waitTimeinNano << std::endl;
 
 									readD.close();
-
+									
 
 					
 									//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff < static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff;
@@ -522,6 +524,9 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					writePulseWidthLTD = static_cast<eNVM*>(arrayIH->cell[0][0])->writePulseWidthLTD;
 				}
 				numBatchWriteSynapse = (int)ceil((double)arrayIH->arrayColSize / param->numWriteColMuxed);
+
+
+
 #pragma omp parallel for reduction(+: sumArrayWriteEnergy, sumNeuroSimWriteEnergy, sumWriteLatencyAnalogNVM)
 				for (int k = 0; k < param->nInput; k++) {
 					int numWriteOperationPerRow = 0;	// Number of write batches in a row that have any weight change
@@ -614,7 +619,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 								/*latestWriteTime estimation*/
 								if ((static_cast<eNVM*>(arrayIH->cell[0][0])->batchSizeZero == true) && (param->currentEpoch == 1)) static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->latestWriteTime = std::chrono::system_clock::now();
-								if (deltaWeight1[jj][k] != 0) {
+								if (!(deltaWeight1[jj][k] == 0)) {
 									static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->latestWriteTime = std::chrono::system_clock::now();
 
 										}
@@ -944,7 +949,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 									if ((static_cast<eNVM*>(arrayIH->cell[0][0])->batchSizeZero == true) && (param->currentEpoch == 1)) static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->latestWriteTime = std::chrono::system_clock::now();
 									if (!(deltaWeight2[jj][k] == 0)) {
 										static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->latestWriteTime = std::chrono::system_clock::now();
-										std::cout << jj << " " << k << " " << " " << std::endl;
+										std::cout << jj << " " << k << " " << std::endl;
 										std::cout << deltaWeight2[jj][k] << " " << (static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->waitTime).count() << std::endl;
 										std::cout << " " << std::endl;
 									}
