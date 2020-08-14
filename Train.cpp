@@ -639,7 +639,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 								/*latestWriteTime estimation*/
 								if ((static_cast<eNVM*>(arrayIH->cell[0][0])->batchSizeZero == true) && (param->currentEpoch == 1)) { static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->latestWriteTime = std::chrono::system_clock::now(); }
-								if (!(deltaWeight1[jj][k] == 0)) {
+								else if (!(deltaWeight1[jj][k] == 0)) {
 									static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->latestWriteTime = std::chrono::system_clock::now();
 
 										}
@@ -967,7 +967,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 									/*latestWriteTime estimation*/
 									if ((static_cast<eNVM*>(arrayIH->cell[0][0])->batchSizeZero == true) && (param->currentEpoch == 1)) static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->latestWriteTime = std::chrono::system_clock::now();
-									if (!(deltaWeight2[jj][k] == 0)) {
+									else if (!(deltaWeight2[jj][k] == 0)) {
 										static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->latestWriteTime = std::chrono::system_clock::now();
 										/*
 										std::cout << jj << " " << k << " " << std::endl;
@@ -1203,7 +1203,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			//start weight tracking
 					//char *fileIH;
 					//char *fileHO;
-
+			/*
 			if (finalbatch && (param->currentEpoch == param->totalNumEpochs)) {
 							
 
@@ -1270,7 +1270,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 
 			}// end of weight tracking code
-
+			*/
 		}
 	}
 }

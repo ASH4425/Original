@@ -104,6 +104,7 @@ public:
 	const double mindriftCoeff = 0.0;
 	const double meanDriftCoeffDepend = 0.2;
 
+
 	double driftCoeffsigmaDtoD;
 	double driftCoeffDependsigmaDtoD;
 	double driftCoeffsigmaCtoC;
