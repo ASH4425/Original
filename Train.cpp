@@ -341,6 +341,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						}
 					}
 
+									string filenameD = "HOwaitTimeinNano1";
+
+									std::ofstream readD;
+
 					for (int n = 0; n < param->numBitInput; n++) {
 						double pSumMaxAlgorithm = pow(2, n) / (param->numInputLevel - 1) * arrayHO->arrayRowSize;    // Max algorithm partial weighted sum for the nth vector bit (if both max input value and max weight are 1)
 						if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayHO->cell[0][0])) {  // Analog eNVM
@@ -360,9 +364,6 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 									double waitTimeinNano = std::chrono::duration_cast<std::chrono::nanoseconds>(static_cast<AnalogNVM*>(arrayHO->cell[j][k])->readTime - static_cast<AnalogNVM*>(arrayHO->cell[j][k])->latestWriteTime).count();
 
-									string filenameD = "HOwaitTimeinNano1";
-
-									std::ofstream readD;
 
 
 									readD.open(filenameD + ".csv", std::ios_base::app);
